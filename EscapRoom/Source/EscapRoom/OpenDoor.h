@@ -4,7 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "Engine/TriggerVolume.h"
 #include "OpenDoor.generated.h"
+
 
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -16,14 +18,24 @@ public:
 	// Sets default values for this component's properties
 	UOpenDoor();
 
+	UPROPERTY(EditAnywhere)
+	ATriggerVolume* PressurePlate;
+
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
+
+	void OpenDoor();
 
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-		
+private:
+	UPROPERTY(EditAnywhere)
+	float OpenAngle = 90.f;
+
+	UPROPERTY(EditAnywhere)
+		AActor* ActorThatOpens; //Remeber pawn inherits from Actor
 	
 };
