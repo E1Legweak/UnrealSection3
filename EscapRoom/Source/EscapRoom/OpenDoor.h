@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "Engine/TriggerVolume.h"
+#include "Engine/World.h"
 #include "OpenDoor.generated.h"
 
 
@@ -27,6 +28,8 @@ protected:
 
 	void OpenDoor();
 
+	void CloseDoor();
+
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
@@ -36,6 +39,11 @@ private:
 	float OpenAngle = 90.f;
 
 	UPROPERTY(EditAnywhere)
-		AActor* ActorThatOpens; //Remeber pawn inherits from Actor
+	float DoorCloseDelay = 1.f;
+
+	float LastDoorOpenTime = 0.1f;
+
+	AActor* ActorThatOpens; //Remeber pawn inherits from Actor
+	AActor* AOwner;
 	
 };
