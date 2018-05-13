@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "Engine/World.h"
+#include "PhysicsEngine/PhysicsHandleComponent.h"
 #include "DrawDebugHelpers.h"
 #include "Grabber.generated.h"
 
@@ -32,5 +33,7 @@ private:
 	float Reach = 100.f;
 
 	AActor* AOwner;
-	
+
+	UPhysicsHandleComponent* PhysicsHandle = nullptr;
+
 };
