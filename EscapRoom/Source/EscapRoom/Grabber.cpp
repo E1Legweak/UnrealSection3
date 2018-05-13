@@ -32,13 +32,27 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	// Get the player view point
+	/// Get the player view point
 	FVector PLocation;
 	FRotator PRot;
 	GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint(OUT PLocation, OUT PRot);
-	UE_LOG(LogTemp, Warning, TEXT("%s also %s"), *PLocation.ToString(), *PRot.ToString());
-	//Raycast out to reach distance
+	//UE_LOG(LogTemp, Warning, TEXT("%s also %s"), *PLocation.ToString(), *PRot.ToString());
 
-	//See what we hit
+	//Draw a red line in the world to visulise grab
+	FVector LineTraceEnd = PLocation + (PRot.Vector() * Reach);
+	DrawDebugLine(GetWorld(), PLocation, LineTraceEnd, FColor(255,0,0), false, 0.f, 0.f, 10.f);
+
+	///Line Trace (Raycast) out to reach distance
+	FHitResult Hit;
+	FCollisionQueryParams TraceParam(FName(TEXT("")), false, GetOwner());
+	GetWorld()->LineTraceSingleByObjectType(OUT Hit, PLocation, LineTraceEnd, FCollisionObjectQueryParams(ECollisionChannel::ECC_PhysicsBody), TraceParam);
+	
+
+	///See what we hit
+	AActor* ActorHit = Hit.GetActor();
+	if (ActorHit)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("%s"), *ActorHit->GetName())
+	}
 }
 
