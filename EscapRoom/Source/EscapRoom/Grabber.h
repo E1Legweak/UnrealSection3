@@ -2,8 +2,10 @@
 
 #pragma once
 
+//#include "Engine.h"
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "Components/InputComponent.h"
 #include "Engine/World.h"
 #include "PhysicsEngine/PhysicsHandleComponent.h"
 #include "DrawDebugHelpers.h"
@@ -33,7 +35,12 @@ private:
 	float Reach = 100.f;
 
 	AActor* AOwner;
-
 	UPhysicsHandleComponent* PhysicsHandle = nullptr;
+	UInputComponent* InputComp = nullptr;
 
+	//Raycast and grab what is in reach
+	void Grab();
+
+	//Release grabbed object
+	void Release();
 };
