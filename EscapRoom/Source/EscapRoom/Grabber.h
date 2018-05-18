@@ -37,6 +37,7 @@ private:
 	AActor* AOwner;
 	UPhysicsHandleComponent* PhysicsHandle = nullptr;
 	UInputComponent* InputComp = nullptr;
+	
 
 	//Raycast and grab what is in reach
 	void Grab();
@@ -49,6 +50,12 @@ private:
 
 	//Setup (assumed) attached input component
 	void SetupInputComponent();
+
+	//Gets the point at end of line trace
+	FVector GetReachLineEnd();
+
+	//Gets the point at end of line trace
+	FVector GetReachLineStart();
 
 	//Return hit for first physics body in reach
 	const FHitResult GetFirstPhysicsBodyInReach();
