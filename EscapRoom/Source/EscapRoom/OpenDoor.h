@@ -43,7 +43,9 @@ private:
 
 	float LastDoorOpenTime = 0.1f;
 
-	AActor* ActorThatOpens; //Remeber pawn inherits from Actor
+	//Returns the total mass inside trigger
+	float GetMassTotal();
+	
 	AActor* AOwner;
 	
 };
