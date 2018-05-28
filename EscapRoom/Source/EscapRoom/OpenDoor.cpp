@@ -12,7 +12,6 @@ UOpenDoor::UOpenDoor()
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
 
-	// ...
 }
 
 
@@ -44,7 +43,7 @@ void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 	
 	// Poll trigger volume every frame
-	if (GetMassTotal()>50.f)
+	if (GetMassTotal()>40.f)
 	{
 		OpenDoor();
 		LastDoorOpenTime = GetWorld()->GetTimeSeconds();
@@ -65,9 +64,13 @@ float UOpenDoor::GetMassTotal()
 	TArray<AActor*> OverlappingActors;
 	PressurePlate->GetOverlappingActors(OUT OverlappingActors);
 
-	//Iterate through them adding their masses#
+	//Iterate through them adding their masses
 
-
+	for (const auto* Act : OverlappingActors)
+	{
+		TotalMass += Act->FindComponentByClass<UPrimitiveComponent>()->GetMass();
+		//UE_LOG(LogTemp, Warning, TEXT("%s is on plate"), *Act->GetName());
+	}
 	return TotalMass;
 }
 

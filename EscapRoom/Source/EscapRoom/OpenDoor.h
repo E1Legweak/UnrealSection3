@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Engine.h"
 #include "Components/ActorComponent.h"
 #include "Engine/TriggerVolume.h"
 #include "Engine/World.h"
@@ -46,6 +47,5 @@ private:
 	//Returns the total mass inside trigger
 	float GetMassTotal();
 	
-	AActor* AOwner;
-	
+	AActor* AOwner;	
 };
