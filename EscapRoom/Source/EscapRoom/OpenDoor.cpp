@@ -32,7 +32,8 @@ void UOpenDoor::OpenDoor()
 {
 	//Set rotation
 	if (!AOwner) { return; }
-	AOwner->SetActorRotation(FRotator(0.f, OpenAngle, 0.f));
+	//AOwner->SetActorRotation(FRotator(0.f, OpenAngle, 0.f));
+	OnOpenRequest.Broadcast();
 }
 
 void UOpenDoor::CloseDoor()
@@ -40,6 +41,7 @@ void UOpenDoor::CloseDoor()
 	//Set rotation
 	if (!AOwner) { return; }
 	AOwner->SetActorRotation(FRotator(0.f, 0.f, 0.f));
+	
 }
 
 
