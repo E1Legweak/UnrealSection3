@@ -26,6 +26,7 @@ void UGrabber::BeginPlay()
 //Look for attached Physics Handle
 void UGrabber::FindPhysicsHandleComponent()
 {
+	if (!AOwner) { return; }
 	PhysicsHandle = AOwner->FindComponentByClass<UPhysicsHandleComponent>();
 	if (PhysicsHandle == nullptr)
 	{
@@ -36,7 +37,7 @@ void UGrabber::FindPhysicsHandleComponent()
 //Look for attached Input Component (only appears at run time)
 void UGrabber::SetupInputComponent()
 {
-	
+	if (!AOwner) { return; }
 	InputComp = AOwner->FindComponentByClass<UInputComponent>();
 	if (InputComp)
 	{
@@ -80,6 +81,7 @@ void UGrabber::Grab()
 	///If we hit something then attach a physics handle
 	if(ActorHit)
 	{ 
+		if (!PhysicsHandle) { return; }
 		//Attach physics handle
 		PhysicsHandle->GrabComponent(ComponentToGrab, NAME_None, ComponentToGrab->GetOwner()->GetActorLocation(), true);
 	}
@@ -89,7 +91,7 @@ void UGrabber::Grab()
 void UGrabber::Release()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Grabber is dropping"));
-
+	if (!PhysicsHandle) { return; }
 	PhysicsHandle->ReleaseComponent();
 }
 
@@ -97,6 +99,8 @@ void UGrabber::Release()
 void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+	
+	if (!PhysicsHandle) { return; }
 	//if physics handle is attached 
 	if (PhysicsHandle->GrabbedComponent) 
 	{

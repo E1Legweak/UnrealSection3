@@ -21,7 +21,7 @@ public:
 	UOpenDoor();
 
 	UPROPERTY(EditAnywhere)
-	ATriggerVolume* PressurePlate;
+	ATriggerVolume* PressurePlate = nullptr;
 
 protected:
 	// Called when the game starts
@@ -47,5 +47,5 @@ private:
 	//Returns the total mass inside trigger
 	float GetMassTotal();
 	
-	AActor* AOwner;	
+	AActor* AOwner = nullptr;
 };
