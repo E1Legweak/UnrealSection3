@@ -9,7 +9,8 @@
 #include "Engine/World.h"
 #include "OpenDoor.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnOpenRequest);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FDoorEvent);
+//DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnCloseRequest);
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class ESCAPROOM_API UOpenDoor : public UActorComponent
@@ -24,31 +25,26 @@ public:
 	ATriggerVolume* PressurePlate = nullptr;
 
 	UPROPERTY(BlueprintAssignable)
-	FOnOpenRequest OnOpenRequest;
+	FDoorEvent OnOpen;
+
+	UPROPERTY(BlueprintAssignable)
+	FDoorEvent OnClose;
 
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
-	void OpenDoor();
-
-	void CloseDoor();
 
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 private:
-	UPROPERTY(EditAnywhere)
-	float OpenAngle = 90.f;
-
-	UPROPERTY(EditAnywhere)
-	float DoorCloseDelay = 1.f;
-
-	float LastDoorOpenTime = 0.1f;
-
 	//Returns the total mass inside trigger
 	float GetMassTotal();
+
+	UPROPERTY(EditAnywhere)
+	float TriggerMass = 30.f;
 	
 	AActor* AOwner = nullptr;
 };
